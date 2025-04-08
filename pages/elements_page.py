@@ -1,6 +1,8 @@
 from base.base_class import Base
 from locators.elements_page_locators import TestBoxLocators
+from locators.elements_page_locators import CheckBoxLocators
 from generator import generator
+import random
 
 
 class PageTextBox(Base):
@@ -77,3 +79,44 @@ class PageTextBox(Base):
         self.assertion_text(self.email_output_text(), self.userProfile.email)
         self.assertion_text(self.current_address_output_text(), self.userProfile.current_address)
         self.assertion_text(self.permanent_address_output_text(), self.userProfile.permanent_address)
+
+
+class CheckBoxPage(Base):
+
+    # Getters
+    def get_all_button(self):
+        return self.elem_clickable(CheckBoxLocators.all_button)
+
+    def get_all_checkbox_elements(self):
+        return self.all_elem_is_visibility(CheckBoxLocators.all_check_box_elements)
+
+    def get_checking_checkbox_elements(self):
+        return self.all_elem_is_visibility(CheckBoxLocators.all_checking_check_box)
+
+    def get_selected_params(self):
+        return self.all_elem_is_visibility(CheckBoxLocators.all_success_elements)
+
+    # Actions
+    def click_all_button(self):
+        self.get_all_button().click()
+
+    def click_random_checkbox_elements(self):
+        elements = self.get_all_checkbox_elements()
+        rand_check = random.randint(1, len(elements))
+        for i in random.sample(elements, rand_check):
+            i.click()
+
+    def checking_checkbox_elements_text(self):
+        for i in self.get_checking_checkbox_elements():
+            yield i.text.lower().strip(".doc").replace(" ", "")
+
+    def selected_params_text(self):
+        for i in self.get_selected_params():
+            yield i.text.lower().strip(".doc").replace(" ", "")
+
+    # Methods
+
+    def random_click_checkboxes(self):
+        self.click_all_button()
+        self.click_random_checkbox_elements()
+        self.assertion_text(tuple(self.checking_checkbox_elements_text()), tuple(self.selected_params_text()))
