@@ -17,5 +17,13 @@ class TestBoxLocators:
 class CheckBoxLocators:
     all_button = (By.CSS_SELECTOR, "button[title='Expand all']")
     all_check_box_elements = (By.CSS_SELECTOR, ".rct-checkbox")
-    all_checking_check_box = (By.XPATH, "//*[contains(@class, 'rct-icon-check')]//ancestor::span[contains(@class, 'rct-text')]")
+    all_checking_check_box = (
+    By.XPATH, "//*[contains(@class, 'rct-icon-check')]//ancestor::span[contains(@class, 'rct-text')]")
     all_success_elements = (By.CSS_SELECTOR, ".text-success")
+
+
+class RadButtonLocators:
+    yes_radio = (By.CSS_SELECTOR, "label[for='yesRadio']")
+    impressive_radio = (By.CSS_SELECTOR, "label[for='impressiveRadio']")
+    no_radio = (By.CSS_SELECTOR, "label[for='noRadio'")
+    text_success = (By.CSS_SELECTOR, ".text-success")

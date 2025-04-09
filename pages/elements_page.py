@@ -1,6 +1,7 @@
 from base.base_class import Base
 from locators.elements_page_locators import TestBoxLocators
 from locators.elements_page_locators import CheckBoxLocators
+from locators.elements_page_locators import RadButtonLocators
 from generator import generator
 import random
 
@@ -120,3 +121,29 @@ class CheckBoxPage(Base):
         self.click_all_button()
         self.click_random_checkbox_elements()
         self.assertion_text(tuple(self.checking_checkbox_elements_text()), tuple(self.selected_params_text()))
+
+
+class RadioButtonPage(Base):
+    # Getters
+    def get_radio_elem(self, name_elem):
+        radio_elements = {'Yes': RadButtonLocators.yes_radio,
+                          'No': RadButtonLocators.no_radio,
+                          'Impressive': RadButtonLocators.impressive_radio
+                          }
+        return self.elem_is_presence(radio_elements[name_elem])
+
+    def get_succes(self):
+        return self.elem_clickable(RadButtonLocators.text_success)
+
+    # Actions
+
+    def click_radio_for_name(self, name_elem):
+        self.get_radio_elem(name_elem).click()
+
+    def text_field_succes(self):
+        return self.get_succes().text
+
+    # Methods
+    def choice_radio(self, name_radio):
+        self.click_radio_for_name(name_radio)
+        self.assertion_text(name_radio, self.text_field_succes())

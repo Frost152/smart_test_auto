@@ -1,5 +1,4 @@
-from pages.elements_page import PageTextBox
-from pages.elements_page import CheckBoxPage
+from pages.elements_page import PageTextBox, CheckBoxPage, RadioButtonPage
 
 
 class TestElements:
@@ -14,3 +13,10 @@ class TestElements:
             page = CheckBoxPage(driver)
             page.open("https://demoqa.com/checkbox")
             page.random_click_checkboxes()
+
+    class TestRadioButton:
+        def test_radio_button(self, driver):
+            page = RadioButtonPage(driver)
+            page.open('https://demoqa.com/radio-button')
+            page.choice_radio('Impressive')
+            page.choice_radio('Yes')
