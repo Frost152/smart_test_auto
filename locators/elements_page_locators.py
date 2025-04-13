@@ -51,3 +51,7 @@ class ButtonsPageLocators:
     double = (By.CSS_SELECTOR, "#doubleClickBtn")
     right = (By.CSS_SELECTOR, "#rightClickBtn")
     click = (By.XPATH, "//button[text()='Click Me']")
+
+
+class LinksPageLocators:
+    home_link = (By.CSS_SELECTOR, "#simpleLink")

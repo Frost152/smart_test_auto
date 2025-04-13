@@ -1,4 +1,4 @@
-from pages.elements_page import PageTextBox, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
+from pages.elements_page import PageTextBox, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage
 import time
 
 
@@ -46,3 +46,10 @@ class TestElements:
             page = ButtonsPage(driver)
             page.open("https://demoqa.com/buttons")
             page.all_ckick()
+
+
+    class TestLinks:
+        def test_links(self, driver):
+            page = LinksPage(driver)
+            page.open("https://demoqa.com/links")
+            page.final_link()

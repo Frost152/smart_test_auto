@@ -1,17 +1,19 @@
+import time
+
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-
 from base.base_class import Base
 from locators.elements_page_locators import TestBoxLocators
 from locators.elements_page_locators import CheckBoxLocators
 from locators.elements_page_locators import RadButtonLocators
 from locators.elements_page_locators import WebTableLocators as TBL
-from locators.elements_page_locators import ButtonsPageLocators
+from locators.elements_page_locators import ButtonsPageLocators, LinksPageLocators
 from generator import generator
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 import random
+import requests
 
 
 class PageTextBox(Base):
@@ -367,3 +369,25 @@ class ButtonsPage(Base):
         self.click_double()
         self.click_right()
         self.click_one()
+
+
+class LinksPage(Base):
+    # Getters
+    def get_home_link_element(self):
+        return WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(LinksPageLocators.home_link))
+
+    def get_home_link_url(self):
+        return self.get_home_link_element().get_attribute("href")
+
+    def get_url(self):
+        return requests.get(self.get_home_link_url())
+
+    # Methods
+
+    def final_link(self):
+        elem = self.get_url()
+        assert elem.status_code == 200
+        self.get_home_link_element().click()
+        tab = self.driver.window_handles[1]
+        self.driver.switch_to.window(tab)
+        assert self.driver.current_url == "https://demoqa.com/"
