@@ -6,6 +6,7 @@ from selenium import webdriver
 def driver():
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
+    # options.add_argument("--headless")
     options.page_load_strategy = "eager"
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
